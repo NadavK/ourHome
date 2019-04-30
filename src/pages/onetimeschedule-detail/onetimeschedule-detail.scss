@@ -1,0 +1,24 @@
+onetimeschedule-detail {
+  .item-profile {
+    width: 100%;
+    background-position: center center;
+    background-size: cover;
+    height: 250px;
+  }
+
+  .item-detail {
+    width: 100%;
+    background: white;
+    //position: absolute;
+  }
+.item-datetime {
+	-webkit-flex: initial;
+	-ms-flex: initial;
+	flex: initial;
+	max-width: 200px;
+  background-color: transparent;
+}
+ion-navbar.toolbar {
+      min-height: 5px;
+    }
+}

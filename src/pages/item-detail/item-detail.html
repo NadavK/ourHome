@@ -1,0 +1,21 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Info - {{ item.description }}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content>
+  <div class="item-detail" padding>
+    <p>state: {{item.state}}</p>
+    <p>id: {{item.id}}</p>
+    <p>pk: {{item.pk}}</p>
+    <p>Tags: {{item.tags}}</p>
+    <p>type: {{item.type}}</p>
+    <p>ph_sn: {{item.ph_sn}}</p>
+    <p>ph_index: {{item.ph_index}}</p>
+    <button *ngIf="item.model==OutputModel" ion-button clear (click)="mouseclickOn(item)"><!--The button is to give a nicer shape to the avatar--><ion-avatar item-start><img src={{item.image_green}} height="32"/></ion-avatar></button>
+    <button *ngIf="item.model==OutputModel" ion-button clear (click)="mouseclickOff(item)"><!--The button is to give a nicer shape to the avatar--><ion-avatar item-start><img src={{item.image_gray}} height="32"/></ion-avatar></button>
+  </div>
+</ion-content>

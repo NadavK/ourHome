@@ -1,0 +1,86 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Schedule - {{ output.description }}</ion-title>
+
+    <ion-buttons end>
+      <button *ngIf="output.permissions.indexOf('add_onetimeschedule')!=-1" ion-button icon-only (click)="addItem()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+      <button *ngIf="output.permissions.indexOf('add_onetimeschedule')!=-1" ion-button icon-only (click)="deleteItem()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+      <button ion-button (click)="loadData()">
+        <ion-icon name="refresh"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+  <ion-toolbar>
+    <div align="center" style="font-size:16px">
+      <div *ngIf="items && items.length; else empty">
+
+        <ion-item no-lines>
+          <ion-datetime displayFormat="DDD DD MMM YYYY" pickerFormat="DD MMMM YYYY" [(ngModel)]="datePickerValue" doneText="OK" min="{{today}}" [ngModelOptions]="{standalone: true}" (ionChange)="OnChangeDate()"></ion-datetime>
+          <p>{{!items[index].active?"NOT Active":""}}</p>
+        </ion-item>
+
+        <!--button ion-button clear (click)="clickDate(item)">{{items[index].start | date}}</button>  <button ion-button clear (click)="clickTimes(item)">{{items[index].start | date:'HH:MM'}} - {{items[index].end | date:'HH:MM'}}</button-->
+
+      </div>
+      <!--ng-template #empty>
+        <div> Empty</div>
+      </ng-template-->
+    </div>
+
+    <ion-buttons left>
+      <button ion-button icon-only (click)="prevItem()" [disabled]="items && (index==0 || items.length==0)">
+        <ion-icon name="arrow-dropleft"></ion-icon>
+      </button>
+    </ion-buttons>
+
+    <ion-buttons end>
+      <button ion-button icon-only (click)="nextItem()" [disabled]="items && index>=items.length-1">
+        <ion-icon name="arrow-dropright"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-footer>
+  <ion-toolbar>
+
+    <ion-buttons left>
+      <button ion-button default color="primary" (click)="allOn()">{{ 'ALL_ON' | translate }}</button>
+      <button ion-button default color="primary" (click)="allOff()">{{ 'ALL_OFF' | translate }}</button>
+    </ion-buttons>
+    <ion-buttons end>
+      <button ion-button default color="primary" (click)="save()">{{ 'SAVE_BUTTON' | translate }}</button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>
+
+<ion-content>
+
+  <div class="item-detail" padding>
+
+    <ion-grid no-padding col-auto>
+
+      <ion-row no-padding>
+        <ion-col col-12 col-sm>
+          <div *ngIf="items && items.length">
+            <ng-container *ngFor='let h of [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]'>
+              <!--button ion-button id={{h*4+m}} *ngFor='let m of [0,1,2,3]' [color]="items[index].segments[h*4+m]=='1' ? 'secondary':'primary'" (mousedown)="onMouseDown($event,items[index],h,m)" (touchstart)="onMouseDown($event,items[index],h,m)" (mouseup)="onMouseUp($event,items[index],h,m)" (touchend)="onMouseUp($event,items[index],h,m)" (tap)="onTap($event,items[index],h,m)" (touchmove)="onTouchMove($event,items[index],h,m)" (dragover)="onEvent($event,items[index],h,m)" (Xpan)="onEvent($event,items[index],h,m)" (click)="onEvent($event,items[index],h,m)" (press)="onPress($event,items[index],h,m)"   (focus)="onEvent($event,items[index],h,m)" (blur)="onEvent($event,items[index],h,m)" (mousemove)="onEvent($event,items[index],h,m)"-->
+              <button ion-button id={{h*4+m}} *ngFor='let m of [0,1,2,3]' [style.background-color]="items[index].color(h,m)" (tap)="onTap($event,items[index],h,m)" (mousemove)="onTouchMove($event,items[index],h,m)" (touchmove)="onTouchMove($event,items[index],h,m)" (mouseup)="onMouseUp($event,items[index],h,m)" (touchend)="onMouseUp($event,items[index],h,m)" (click)="onEvent($event,items[index],h,m)" (press)="onPress($event,items[index],h,m)" >
+                <!--b>{{("0"+h).slice(-2)}}</b><sup>{{("0"+m*15).slice(-2)}}</sup>&nbsp;-&nbsp;{{("0"+(h+(m==3?1:0))).slice(-2)}}<sup>{{("0"+((m+1)*15)%60).slice(-2)}}</sup-->
+                <b>{{("0"+h).slice(-2)}}</b><sup>{{("0"+m*15).slice(-2)}}</sup>
+              </button>
+              <br>
+            </ng-container>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>

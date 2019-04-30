@@ -1,0 +1,40 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{ 'LIST_MASTER_TITLE' | translate }}</ion-title>
+
+    <ion-buttons left>
+      <button ion-button icon-only menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-buttons end>
+      <button ion-button (click)="loadData()">
+        <ion-icon name="refresh"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+
+
+<ion-content>
+  <ion-item-group>
+    <ng-container *ngFor="let tag of data; let i=index">
+      <ion-item-divider text-wrap (click)="toggleGroup(i)">{{tag.name}}</ion-item-divider>
+      <div *ngIf="isGroupShowing(i)">
+        <ion-item class="divHeight" ion-item *ngFor="let item of tag.ios">
+          <div class="centerAlign" >  <!-- Button Click used to be here for the entire line, not just the image -->
+              <button ion-button item-start clear (click)="mouseclickState(item)"><!--The button is to give a nicer shape to the avatar--><ion-avatar item-start><img src={{item.image}} height="32"/></ion-avatar></button>{{item.description}}
+          </div>
+          <div></div>
+            <button *ngIf="item.supports_schedules" ion-button item-end clear (click)="openSchedule(item, $event)"><img src="assets/img/schedule3.png" height="25" width="25"></button>
+            <button class="buttonMargin" ion-button icon-only item-end (click)="openItem(item, $event)"><ion-icon name="information-circle"></ion-icon></button>
+        </ion-item>
+      </div>
+    </ng-container>
+  </ion-item-group>
+
+</ion-content>
